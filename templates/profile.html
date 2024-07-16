@@ -1,0 +1,147 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>User Profile</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css" integrity="sha512-Bh4kDE9BXkLpdt5KUdXV8GZ/mvN/xm0FGtq5gKu+QItv+crhZcFjLZvBnJY/1oGv00Z0RyPwH1va5+LOr31PA==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            line-height: 1.6;
+            margin: 0;
+            padding: 0;
+            background-color: #f4f4f4;
+        }
+        .topnav {
+              display: flex;
+              justify-content: space-between;
+              align-items: center;
+              padding: 10px 20px;
+              background-color: #069c3d;
+              color: white;
+              position: fixed;
+              top: 0;
+              left: 0px;
+              right: 0;
+              z-index: 1000;
+              margin-left: 1px;
+              margin-right: 1px;
+        }
+        .topnav a {
+            float: left;
+            color: #f2f2f2;
+            text-align: center;
+            padding: 14px 16px;
+            text-decoration: none;
+            font-size: 17px;
+        }
+    .topnav a:hover {
+          color: #64b5cf;
+          padding: 8px 16px;
+          border-radius: 5px;
+          cursor: pointer;
+          transition: background-color 0.3s;
+          text-decoration: none;
+          margin-left: 10px;
+        }
+
+    .topnav .navbar-brand {
+          color: #f2f2f2;
+          font-size: 34px;
+          margin-left: 0px;
+    }
+        .container {
+            padding: 20px;
+            max-width: 800px;
+            margin: 0 auto;
+            margin-top: 100px;
+        }
+        .profile {
+            border: 1px solid #ccc;
+            padding: 20px;
+            border-radius: 10px;
+            background-color: #fff;
+            margin-bottom: 20px;
+        }
+        .profile h2 {
+            margin-top: 0;
+            font-size: 24px;
+            color: #333;
+        }
+        .profile p {
+            margin: 10px 0;
+            color: #666;
+        }
+        .bookings {
+            background-color: #fff;
+            border: 1px solid #ccc;
+            border-radius: 10px;
+            padding: 20px;
+        }
+        .bookings h2 {
+            margin-top: 0;
+            font-size: 20px;
+            color: #333;
+        }
+        .booking {
+            border: 1px solid #ddd;
+            padding: 15px;
+            border-radius: 5px;
+            margin-bottom: 10px;
+            background-color: #f9f9f9;
+        }
+        .booking h3 {
+            margin-top: 0;
+            font-size: 18px;
+            color: #333;
+        }
+        .booking p {
+            margin: 5px 0;
+            color: #666;
+        }
+
+    </style>
+</head>
+<body>
+<!--  <div class="top-navbar">-->
+<!--    <div class="navbar-brand">Real Estate App</div>-->
+<!--    <div>-->
+<!--      <a href="/home"><i class="fas fa-home"></i> Home</a></a>-->
+<!--   <a href="add_listing">-->
+<!--  <i class="fas fa-list"></i> Add New Listing-->
+<!--</a>-->
+
+<!--      <a href="logout"><i class="fas fa-info-circle"></i> Logout</a>-->
+
+<!--    </div>-->
+<!--  </div>-->
+    <div class="topnav">
+        <div class="navbar-brand">Ikaze Booking</div>
+        <div>
+        <a href="{{ url_for('home') }}" class="active">Home</a>
+<!--        <a href="{{ url_for('add_listing') }}">Add New Listing</a>-->
+        <a href="{{ url_for('logout') }}">Logout</a>
+        </div>
+    </div>
+    <div class="container">
+        <div class="profile">
+            <h2>Names:{{ user_info.full_name }}</h2>
+            <p><i class="fas fa-envelope icon">Email:</i> {{ user_info.email }}</p>
+            <p><i class="fas fa-user icon">Username</i> {{ user_info.username }}</p>
+            <!-- Add more fields as needed -->
+        </div>
+        <div class="bookings">
+            <h2>Bookings</h2>
+            {% for booking in bookings %}
+            <div class="booking">
+                <h3>Booking ID: {{ booking.id }}</h3>
+                <p><i class="far fa-calendar-alt icon"></i> <strong>Check-in:</strong> {{ booking.check_in_date }}</p>
+                <p><i class="far fa-calendar-alt icon"></i> <strong>Check-out:</strong> {{ booking.check_out_date }}</p>
+                <p><i class="fas fa-info-circle icon"></i> <strong>Status:</strong> {{ booking.status }}</p>
+            </div>
+            {% endfor %}
+        </div>
+    </div>
+</body>
+</html>

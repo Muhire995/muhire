@@ -1,0 +1,158 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Booking: {{ listing.title }}</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css" integrity="sha512-Bh4kDE9BXkLpdt5KUdXV8GZ/mvN/xm0FGtTq5gKu+QItv+crhZcFjLZvBnJY/1oGv00Z0RyPwH1va5+LOr31PA==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            line-height: 1.6;
+            margin: 0;
+            padding: 0;
+        }
+        .topnav {
+            background-color: #333;
+            overflow: hidden;
+        }
+        .topnav a {
+            float: left;
+            color: #f2f2f2;
+            text-align: center;
+            padding: 14px 16px;
+            text-decoration: none;
+            font-size: 17px;
+        }
+        .topnav a:hover {
+            background-color: #ddd;
+            color: black;
+        }
+        .container {
+            padding: 20px;
+        }
+        .listing {
+            margin-bottom: 20px;
+            border: 1px solid #ccc;
+            padding: 10px;
+            overflow: hidden;
+        }
+        .listing img {
+            float: left;
+            margin-right: 20px;
+            border: 1px solid #ddd;
+            width: 200px; /* Ensure the image has a consistent width */
+        }
+        .listing h2 {
+            margin: 0;
+            font-size: 24px;
+            display: inline-block;
+        }
+        .listing .icon {
+            margin-right: 10px;
+            font-size: 20px;
+        }
+        .listing p {
+            margin: 5px 0;
+        }
+        .back-button {
+            display: inline-block;
+            padding: 10px;
+            margin-top: 10px;
+            background-color: #333;
+            color: white;
+            text-decoration: none;
+            border-radius: 5px;
+            font-weight: bold;
+            margin-right: 10px;
+        }
+        .back-button:hover {
+            background-color: #555;
+        }
+        .confirm-button {
+            display: inline-block;
+            padding: 10px;
+            background-color: #28a745;
+            color: white;
+            text-decoration: none;
+            border-radius: 5px;
+            font-weight: bold;
+            margin-right: 10px;
+        }
+        .confirm-button:hover {
+            background-color: #218838;
+        }
+        .form-group {
+            margin-bottom: 15px;
+        }
+        .form-group label {
+            display: block;
+            font-weight: bold;
+            margin-bottom: 5px;
+        }
+        .form-group input[type="date"],
+        .form-group input[type="number"] {
+            padding: 8px;
+            width: 100%;
+            box-sizing: border-box;
+        }
+    </style>
+</head>
+<body>
+    <div class="topnav">
+        <a href="{{ url_for('home') }}" class="active">Home</a>
+        <a href="{{ url_for('add_listing') }}">Add New Listing</a>
+        <a class="nav-link" href="{{ url_for('logout') }}">Logout</a>
+        <!-- Add more links as needed -->
+    </div>
+
+    <div class="container">
+        <div class="listing">
+            <img src="{{ listing.image_url }}" alt="{{ listing.title }}" width="200">
+            <h2>{{ listing.title }}</h2>
+            <p><i class="fas fa-map-marker-alt icon"></i> Location: {{ listing.location }}</p>
+            <p><i class="fas fa-bed icon"></i> Number of Rooms: {{ listing.number_of_rooms }}</p>
+            <p><i class="fas fa-dollar-sign icon"></i> Price: ${{ listing.price }}</p>
+            <p>{{ listing.description }}</p> <!-- Assuming you have a description field in your database -->
+        </div>
+
+        <form action="{{ url_for('confirm_booking', listing_id=listing.id) }}" method="POST">
+            <div class="form-group">
+                <label for="check-in-date">Check-in Date:</label>
+                <input type="date" id="check-in-date" name="check_in_date" required>
+            </div>
+            <div class="form-group">
+                <label for="check-out-date">Check-out Date:</label>
+                <input type="date" id="check-out-date" name="check_out_date" required>
+            </div>
+            <div class="form-group">
+                <label for="num-rooms">Number of Rooms:</label>
+                <input type="number" id="num-rooms" name="num_rooms" min="1" required>
+            </div>
+            <div class="form-group">
+                <label for="num-people">Number of People:</label>
+                <input type="number" id="num-people" name="num_people" min="1" required>
+            </div>
+            <button type="submit" class="confirm-button">Confirm Booking</button>
+        </form>
+
+        <a href="{{ url_for('home') }}" class="back-button">Back to Listings</a>
+    </div>
+
+<!-- Add this form below the booking details in booking.html -->
+{% if session['role'] == 'host' %}
+    <form action="{{ url_for('update_booking_status', booking_id=listing.id) }}" method="POST">
+        <div class="form-group">
+            <label for="status">Update Booking Status:</label>
+            <select id="status" name="status">
+                <option value="in progress">In Progress</option>
+                <option value="approved">Approved</option>
+                <!-- Add other status options if needed -->
+            </select>
+        </div>
+        <button type="submit" class="confirm-button">Update Status</button>
+    </form>
+{% endif %}
+
+</body>
+</html>

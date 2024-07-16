@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Upload Images</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+</head>
+<body>
+    <div class="container mt-5">
+        <h1>Upload Additional Images for Listing</h1>
+        <form action="{{ url_for('image_upload', listing_id=listing_id) }}" method="POST" enctype="multipart/form-data">
+            <div class="form-group">
+                <label for="images">Images</label>
+                <input type="file" class="form-control-file" id="images" name="images" multiple required>
+            </div>
+            <button type="submit" class="btn btn-primary">Upload Images</button>
+        </form>
+        <a href="{{ url_for('host_dashboard') }}" class="btn btn-secondary mt-3">Back to Dashboard</a>
+    </div>
+</body>
+</html>

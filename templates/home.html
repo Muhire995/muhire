@@ -1,0 +1,267 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Guest Houses and Resorts</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css" integrity="sha512-Bh4kDE9BXkLpdt5KUdXV8GZ/mvN/xm0FGtq5gKu+QItv+crhZcFjLZvBnJY/1oGv00Z0RyPwH1va5+LOr31PA==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css"> <!-- Font Awesome CSS -->
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            line-height: 1.6;
+            margin: 0;
+            padding: 0;
+            background-color: #f2f2f2;
+        }
+        .topnav {
+            background-color: #069c3d;
+            height: 50px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 0 10px;
+        }
+        .topnav .brand {
+            font-size: 30px;
+            color: #f2f2f2;
+            text-decoration: none;
+            margin-left: 290px;
+
+        }
+        .topnav .nav-links {
+            display: flex;
+            color: #333;
+        }
+        .topnav .nav-links a {
+            color: #f2f2f2;
+            text-align: center;
+            padding: 14px 16px;
+            text-decoration: none;
+            font-size: 17px;
+        }
+        .topnav .nav-links a:hover {
+            background-color: #ddd;
+            color: black;
+        }
+        .hero-image {
+            background-image: url('static/three.jpg');
+            background-size: cover; /* Cover the entire area while maintaining aspect ratio */
+            background-position: center bottom; /* Position the bottom part of the image */
+            background-repeat: no-repeat;
+            height: 360px;
+            position: relative;
+            text-align: center;
+            color: white;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+        .hero-text {
+            z-index: 1;
+            position: relative;
+            color: #ffff;
+            margin-bottom: 250px;
+
+        }
+        .search-container {
+            text-align: center;
+            margin-top: -1px;
+            margin-bottom: 20px;
+        }
+        .search-form {
+            display: inline-block;
+            border: 1px solid #ccc;
+            padding: 10px;
+            background-color: #069c3d;
+            box-shadow: 0px 0px 10px 0px rgba(0,0,0,0.1);
+            border-radius: 5px;
+
+        }
+        .search-form input[type=text],
+        .search-form input[type=date],
+        .search-form input[type=number] {
+            padding: 10px;
+            margin: 5px;
+            border: 1px solid #ccc;
+            width: 180px;
+            box-sizing: border-box;
+        }
+        .search-form input[type=number]#numPeople {
+            width: 120px;
+        }
+        .search-form button {
+            padding: 10px;
+            margin: 5px;
+            background-color: #CAAD10;
+            color: white;
+            border: none;
+            cursor: pointer;
+            border-radius: 5px;
+        }
+        .search-form button:hover {
+            background-color: #218838;
+        }
+        .listings-container {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: flex-start; /* Start items from left */
+            margin: 20px 10px;
+
+        }
+        .listing {
+            width: 300px;
+            background-color: #fff;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+            margin: 20px;
+            overflow: hidden;
+            box-shadow: 0px 0px 10px 0px rgba(0,0,0,0.1);
+        }
+        .listing img {
+            width: 100%;
+            height: 200px;
+            object-fit: cover;
+            border-bottom: 1px solid #ddd;
+
+        }
+        .listing-content {
+            padding: 15px;
+        }
+        .listing h2 {
+            margin: 10px 0;
+            font-size: 20px;
+            color: #333;
+        }
+        .listing p {
+            margin: 8px 0;
+            color: #666;
+        }
+        .listing .icon {
+            margin-right: 5px;
+            color: #666;
+        }
+        .listing .book-button {
+            display: block;
+            width: 35%;
+            padding: 10px;
+            background-color: #28a745;
+            color: white;
+            text-decoration: none;
+            text-align: center;
+            border-radius: 5px;
+            margin-top: 10px;
+            font-weight: bold;
+            margin-left: 0px;
+        }
+        .listing .book-button:hover {
+            background-color: #218838;
+        }
+        .site-info-container {
+            background-color: #f8f9fa;
+            padding: 20px;
+            margin-top: 20px;
+        }
+        .site-info {
+            max-width: 800px;
+            margin: 0 auto;
+            text-align: center;
+        }
+        .site-info h2 {
+            color: #333;
+            font-size: 24px;
+            margin-bottom: 10px;
+        }
+        .site-info p {
+            color: #666;
+            line-height: 1.6;
+            margin-bottom: 15px;
+        }
+        .site-info .icon {
+            margin-right: 10px;
+            font-size: 24px;
+        }
+        .copyright {
+            background-color: #333;
+            color: #fff;
+            text-align: center;
+            padding: 10px 0;
+            font-size: 14px;
+        }
+    </style>
+</head>
+<body>
+
+<!--{% if total_listings > per_page %}-->
+<!--  <div class="pagination">-->
+<!--    {% for p in range(1, (total_listings // per_page) + 2) %}-->
+<!--      <a href="{{ url_for('get_listings', page=p) }}" class="{{ 'active' if p == page else '' }}">{{ p }}</a>-->
+<!--    {% endfor %}-->
+<!--  </div>-->
+<!--{% endif %}-->
+
+    <div class="topnav">
+        <a href="{{ url_for('home') }}" class="brand">Ikaze Booking</a>
+        <div class="nav-links">
+            <a href="{{ url_for('home') }}">Home</a>
+
+            <a href="{{ url_for('login') }}">Login</a>
+            <a href="{{ url_for('signup') }}">Signup</a>
+
+            <!-- Add more links as needed -->
+        </div>
+    </div>
+
+    <div class="hero-image">
+        <div class="hero-text">
+            <h1 style="font-size: 3em;">Find Your Ideal Stay</h1>
+            <h1 style="font-size: 1.5em;">Discover the best guest houses and resorts for your next getaway</h1>
+        </div>
+    </div>
+
+    <!-- Search Form -->
+    <div class="search-container">
+        <form id="searchForm" class="search-form" action="{{ url_for('search_listings') }}" method="GET">
+            <input type="text" placeholder="Enter location..." name="location" required>
+            <input type="date" name="check_in_date" required>
+            <input type="date" name="check_out_date" required>
+            <input type="number" name="num_rooms" placeholder="Rooms" required>
+            <input type="number" name="num_people" placeholder="Guests" required>
+            <button type="submit">Search</button>
+        </form>
+    </div>
+
+    <!-- Listings Container -->
+    <div class="listings-container">
+        {% for listing in listings %}
+        <div class="listing">
+            <img src="{{ listing.image_url }}" alt="{{ listing.title }}">
+            <div class="listing-content">
+                <h2><i class="fas fa-home icon"></i>{{ listing.title }}</h2>
+                <p><i class="fas fa-map-marker-alt icon"></i> {{ listing.location }}</p>
+                <p><i class="fas fa-bed icon"></i> Rooms: {{ listing.number_of_rooms }}</p>
+                <p><i class="fas fa-dollar-sign icon"></i> Price: ${{ listing.price }}</p>
+                <a href="/view_listing_images/{{ listing.id }}" class="book-button">View Details</a>
+            </div>
+        </div>
+        {% endfor %}
+    </div>
+
+    <!-- Site Information -->
+    <div class="site-info-container">
+        <div class="site-info">
+<!--            <h2><i class="fas fa-info-circle icon"></i> About Us</h2>-->
+<!--            <p>At Guest Houses and Resorts, we prioritize your comfort and satisfaction. Our user-friendly platform allows you to easily search, compare, and book accommodations tailored to your travel plans. Whether you're planning a weekend getaway or a long-term stay, we're committed to helping you find the ideal place to stay.</p>-->
+
+            <h2><i class="fas fa-address-book icon"></i> Contact</h2>
+            <p>Email: info@ikazebooking.rw</p>
+            <p>Phone: +250788000000</p>
+        </div>
+    </div>
+
+    <!-- Footer -->
+    <div class="copyright">
+        <p>&copy; 2023 Guest Houses and Resorts. All rights reserved.</p>
+    </div>
+</body>
+</html>
